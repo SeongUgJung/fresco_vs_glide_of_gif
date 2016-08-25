@@ -1,6 +1,6 @@
 # Glide can be faster on GIF
 
-![GIF Loading](https://www.youtube.com/watch?v=Qqg5n7W6xZI)
+[![GIF Loading](http://img.youtube.com/vi/Qqg5n7W6xZI/0.jpg)](http://www.youtube.com/watch?v=Qqg5n7W6xZI)
 
 Fresco : 12s
 Glide : 7s
