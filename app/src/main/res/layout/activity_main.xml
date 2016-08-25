@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.nobrain.fresco_vs_glide.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/vg_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_fresco"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/animated_gif_fresco"
+            style="@style/drawee"
+            android:layout_weight="1"
+            />
+
+        <ImageView
+            android:id="@+id/animated_gif_glide"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btn_fresco"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/vg_image"
+        android:layout_alignTop="@+id/vg_image"
+        android:layout_margin="4dp"
+        android:background="@drawable/bg_text"
+        android:text="fresco"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/vg_image"
+        android:layout_alignLeft="@+id/vg_image"
+        android:layout_margin="4dp"
+        android:background="@drawable/bg_text"
+        android:text="glide"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/btn_fresco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="fresco" />
+
+    <Button
+        android:id="@+id/btn_both"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Both" />
+
+    <Button
+        android:id="@+id/btn_glide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="glide" />
+
+
+</RelativeLayout>
