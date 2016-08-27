@@ -1,9 +1,12 @@
 package com.nobrain.fresco_vs_glide;
 
+import android.graphics.Color;
 import android.graphics.drawable.Animatable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,8 +28,16 @@ import okhttp3.OkHttpClient;
 public class MainActivity extends AppCompatActivity {
 
     private static final String URL = "https://docs.google.com/uc?authuser=0&id=0B3Dc_KI_InDOdFFaVlFZTlZxRlE&export=download";
-    private SimpleDraweeView fresco;
-    private ImageView glide;
+    private static final String[] URL2 = {
+            "https://docs.google.com/uc?id=0B3Dc_KI_InDOdFFaVlFZTlZxRlE&export=download",
+            "https://docs.google.com/uc?id=0B3Dc_KI_InDOTFZaRV9UZDI0Rzg&export=download",
+            "https://docs.google.com/uc?id=0B3Dc_KI_InDOUFBkbGU3Um1FWGc&export=download",
+            "https://docs.google.com/uc?id=0B3Dc_KI_InDOTlI1MHVlcnNQLTg&export=download",
+            "https://docs.google.com/uc?id=0B3Dc_KI_InDOMEFMaTNDT3FXcjg&export=download",
+            "https://docs.google.com/uc?id=0B3Dc_KI_InDOa0RDOXpOUlpucjQ&export=download"};
+    private static final String TAG = "MainActivity";
+    private SimpleDraweeView[] frescos;
+    private ImageView[] glides;
     private Button btnFresco;
     private Button btnGlide;
 
@@ -36,17 +47,12 @@ public class MainActivity extends AppCompatActivity {
         Fresco.initialize(this, OkHttpImagePipelineConfigFactory.newBuilder(this, new OkHttpClient.Builder().build()).build());
         setContentView(R.layout.activity_main);
 
-
-        fresco = (SimpleDraweeView) findViewById(R.id.animated_gif_fresco);
-
-        glide = (ImageView) findViewById(R.id.animated_gif_glide);
-
+        bindViews();
 
         btnFresco = (Button) findViewById(R.id.btn_fresco);
         btnFresco.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-
                 loadFresco();
 
             }
@@ -71,48 +77,72 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void bindViews() {
+        frescos = new SimpleDraweeView[6];
+        glides = new ImageView[6];
+
+        frescos[0] = (SimpleDraweeView) findViewById(R.id.animated_gif_fresco_1);
+        frescos[1] = (SimpleDraweeView) findViewById(R.id.animated_gif_fresco_2);
+        frescos[2] = (SimpleDraweeView) findViewById(R.id.animated_gif_fresco_3);
+        frescos[3] = (SimpleDraweeView) findViewById(R.id.animated_gif_fresco_4);
+        frescos[4] = (SimpleDraweeView) findViewById(R.id.animated_gif_fresco_5);
+        frescos[5] = (SimpleDraweeView) findViewById(R.id.animated_gif_fresco_6);
+
+        glides[0] = (ImageView) findViewById(R.id.animated_gif_glide_1);
+        glides[1] = (ImageView) findViewById(R.id.animated_gif_glide_2);
+        glides[2] = (ImageView) findViewById(R.id.animated_gif_glide_3);
+        glides[3] = (ImageView) findViewById(R.id.animated_gif_glide_4);
+        glides[4] = (ImageView) findViewById(R.id.animated_gif_glide_5);
+        glides[5] = (ImageView) findViewById(R.id.animated_gif_glide_6);
+
+
+    }
+
     private void loadGlide() {
-        final long time = System.currentTimeMillis();
 
-        Glide.with(MainActivity.this)
-                .load(URL)
-                .fitCenter()
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .listener(new RequestListener<String, GlideDrawable>() {
-                    @Override
-                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        return false;
-                    }
+        int length = glides.length;
+        for (int idx = 0; idx < length; idx++) {
 
-                    @Override
-                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        long last = System.currentTimeMillis();
+            final long time = System.currentTimeMillis();
+            Glide.with(MainActivity.this)
+                    .load(URL2[idx])
+                    .fitCenter()
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .error(new ColorDrawable(Color.CYAN))
+                    .listener(new RequestListener<String, GlideDrawable>() {
+                        @Override
+                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                            return false;
+                        }
 
-                        float diff = (last - time) / 1000f;
-                        btnGlide.setText(String.format("%.2f", diff));
-                        return false;
-                    }
-                })
-                .into(glide);
+                        @Override
+                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            Log.d(TAG, "onResourceReady: " + (System.currentTimeMillis() - time));
+                            return false;
+                        }
+                    })
+                    .into(glides[idx]);
+        }
     }
 
     private void loadFresco() {
-        final long time = System.currentTimeMillis();
 
-        DraweeController animatedController = Fresco.newDraweeControllerBuilder()
-                .setAutoPlayAnimations(true)
-                .setUri(Uri.parse(URL))
-                .setControllerListener(new BaseControllerListener<ImageInfo>() {
-                    @Override
-                    public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
-                        long last = System.currentTimeMillis();
+        int length = frescos.length;
+        for (int idx = 0; idx < length; idx++) {
 
-                        float diff = (last - time) / 1000f;
-                        btnFresco.setText(String.format("%.2f", diff));
-                    }
-                })
-                .build();
+            final long time = System.currentTimeMillis();
+            DraweeController animatedController = Fresco.newDraweeControllerBuilder()
+                    .setAutoPlayAnimations(true)
+                    .setUri(Uri.parse(URL2[idx]))
+                    .setControllerListener(new BaseControllerListener<ImageInfo>() {
+                        @Override
+                        public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
+                            Log.d(TAG, "onFinalImageSet: " + (System.currentTimeMillis() - time));
+                        }
+                    })
+                    .build();
 
-        fresco.setController(animatedController);
+            frescos[idx].setController(animatedController);
+        }
     }
 }

@@ -16,21 +16,97 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/btn_fresco"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:weightSum="2">
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/animated_gif_fresco"
-            style="@style/drawee"
-            android:layout_weight="1"
-            />
-
-        <ImageView
-            android:id="@+id/animated_gif_glide"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/btn_fresco"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="6">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/animated_gif_fresco_1"
+                style="@style/drawee"
+                android:layout_weight="1" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/animated_gif_fresco_2"
+                style="@style/drawee"
+                android:layout_weight="1" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/animated_gif_fresco_3"
+                style="@style/drawee"
+                android:layout_weight="1" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/animated_gif_fresco_4"
+                style="@style/drawee"
+                android:layout_weight="1" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/animated_gif_fresco_5"
+                style="@style/drawee"
+                android:layout_weight="1" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/animated_gif_fresco_6"
+                style="@style/drawee"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="6">
+
+            <ImageView
+                android:id="@+id/animated_gif_glide_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+
+            <ImageView
+                android:id="@+id/animated_gif_glide_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+
+            <ImageView
+                android:id="@+id/animated_gif_glide_3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+
+            <ImageView
+                android:id="@+id/animated_gif_glide_4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+
+            <ImageView
+                android:id="@+id/animated_gif_glide_5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+
+            <ImageView
+                android:id="@+id/animated_gif_glide_6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -47,8 +123,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/vg_image"
-        android:layout_alignLeft="@+id/vg_image"
+        android:layout_alignRight="@+id/vg_image"
+        android:layout_alignTop="@+id/vg_image"
         android:layout_margin="4dp"
         android:background="@drawable/bg_text"
         android:text="glide"
